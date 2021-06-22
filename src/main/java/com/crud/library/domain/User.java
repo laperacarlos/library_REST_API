@@ -42,4 +42,9 @@ public class User {
         this.lastName = lastName;
         this.creationDate = creationDate;
     }
+
+    public User (String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }

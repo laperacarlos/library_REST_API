@@ -37,4 +37,9 @@ public class RentalEntry {
         this.user = user;
         this.rentalDate = rentalDate;
     }
+
+    public RentalEntry(Book book, User user) {
+        this.book = book;
+        this.user = user;
+    }
 }
