@@ -1,11 +1,14 @@
 package com.crud.library.domain;
 
+import com.crud.library.Status;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
+@NoArgsConstructor
 @Entity(name = "BOOKS")
 public class Book {
 
@@ -13,12 +16,16 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   //tu raczej jakiś ENUM powinien być
-    @Column
-    @NotNull
-    private String status;
-
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "TITLE_ID")
     private Title title;
+
+    @NotNull
+    private Status status;
+
+    public Book(@NotNull Title title, @NotNull Status status) {
+        this.title = title;
+        this.status = status;
+    }
 }

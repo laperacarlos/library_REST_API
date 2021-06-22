@@ -1,6 +1,7 @@
 package com.crud.library.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity(name = "TITLES")
 public class Title {
 
@@ -34,5 +36,9 @@ public class Title {
     )
     private List<Book> books = new ArrayList<>();
 
-
+    public Title(@NotNull String title, @NotNull String author, @NotNull int publicationYear) {
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+    }
 }
