@@ -1,6 +1,5 @@
 package com.crud.library.domain;
 
-import com.crud.library.Status;
 import com.crud.library.repository.BookDao;
 import com.crud.library.repository.TitleDao;
 import org.junit.jupiter.api.Test;

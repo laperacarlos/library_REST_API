@@ -37,6 +37,8 @@ public class User {
     )
     private List<RentalEntry> listOfRentals = new ArrayList<>();
 
+    private boolean costToBePaid;
+
     public User(@NotNull String firstName, @NotNull String lastName, @NotNull LocalDateTime creationDate) {
         this.firstName = firstName;
         this.lastName = lastName;

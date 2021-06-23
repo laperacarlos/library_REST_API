@@ -1,11 +1,12 @@
 package com.crud.library.domain;
 
-import com.crud.library.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +24,13 @@ public class Book {
 
     @NotNull
     private Status status;
+
+    @OneToMany(
+            targetEntity = RentalEntry.class,
+            mappedBy = "book",
+            fetch = FetchType.LAZY
+    )
+    private List<RentalEntry> listOfRentals = new ArrayList<>();
 
     public Book(@NotNull Title title, @NotNull Status status) {
         this.title = title;

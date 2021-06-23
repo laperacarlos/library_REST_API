@@ -1,4 +1,4 @@
-package com.crud.library;
+package com.crud.library.domain;
 
 public enum Status {
     AVAILABLE("available"),

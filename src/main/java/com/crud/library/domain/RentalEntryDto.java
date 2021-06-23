@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 public class RentalEntryDto {
     private Long id;
-    private Book book;
-    private User user;
+    private Long bookId;
+    private Long userId;
     private LocalDateTime rentalDate;
     private LocalDateTime returnDate;
 }
