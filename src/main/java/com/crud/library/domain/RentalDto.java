@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Getter
-public class RentalEntryDto {
+public class RentalDto {
     private Long id;
     private Long bookId;
     private Long userId;

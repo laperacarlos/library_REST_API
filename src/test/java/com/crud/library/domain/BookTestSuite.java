@@ -5,11 +5,13 @@ import com.crud.library.repository.TitleDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Transactional
 @SpringBootTest()
 public class BookTestSuite {
 
@@ -24,7 +26,7 @@ public class BookTestSuite {
         //given
         Title title = new Title("title", "author", 2020);
         titleDao.save(title);
-        Book book = new Book(title, Status.AVAILABLE);
+        Book book = new Book(title);
 
         //when
         bookDao.save(book);
@@ -42,7 +44,7 @@ public class BookTestSuite {
         //given
         Title title = new Title("title", "author", 2020);
         titleDao.save(title);
-        Book book = new Book(title, Status.AVAILABLE);
+        Book book = new Book(title);
         bookDao.save(book);
 
         //when
@@ -62,7 +64,7 @@ public class BookTestSuite {
         //given
         Title title = new Title("title", "author", 2020);
         titleDao.save(title);
-        Book book = new Book(title, Status.AVAILABLE);
+        Book book = new Book(title);
         bookDao.save(book);
 
         //when
@@ -70,7 +72,7 @@ public class BookTestSuite {
         bookDao.save(book);
 
         //then
-        assertEquals("destroyed", book.getStatus().getStatus());
+        assertEquals("DESTROYED", book.getStatus().toString());
 
         //clean
         bookDao.deleteAll();
@@ -82,7 +84,7 @@ public class BookTestSuite {
         //given
         Title title = new Title("title", "author", 2020);
         titleDao.save(title);
-        Book book = new Book(title, Status.AVAILABLE);
+        Book book = new Book(title);
         bookDao.save(book);
 
         //when

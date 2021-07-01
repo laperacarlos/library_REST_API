@@ -31,22 +31,15 @@ public class User {
     private LocalDateTime creationDate;
 
     @OneToMany(
-            targetEntity = RentalEntry.class,
+            targetEntity = Rental.class,
             mappedBy = "user",
             fetch = FetchType.LAZY
     )
-    private List<RentalEntry> listOfRentals = new ArrayList<>();
-
-    private boolean costToBePaid;
+    private List<Rental> listOfRentals = new ArrayList<>();
 
     public User(@NotNull String firstName, @NotNull String lastName, @NotNull LocalDateTime creationDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.creationDate = creationDate;
-    }
-
-    public User (String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
     }
 }

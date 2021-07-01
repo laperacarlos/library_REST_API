@@ -23,21 +23,20 @@ public class Book {
     private Title title;
 
     @NotNull
+    @Column
+    @Enumerated(value = EnumType.STRING)
     private Status status;
 
     @OneToMany(
-            targetEntity = RentalEntry.class,
+            cascade = CascadeType.PERSIST,
+            targetEntity = Rental.class,
             mappedBy = "book",
             fetch = FetchType.LAZY
     )
-    private List<RentalEntry> listOfRentals = new ArrayList<>();
+    private List<Rental> listOfRentals = new ArrayList<>();
 
-    public Book(@NotNull Title title, @NotNull Status status) {
+    public Book(@NotNull Title title) {
         this.title = title;
-        this.status = status;
-    }
-
-    public Book (Title title) {
-        this.title = title;
+        this.status = Status.AVAILABLE;
     }
 }

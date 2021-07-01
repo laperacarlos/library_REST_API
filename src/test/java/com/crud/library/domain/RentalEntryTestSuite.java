@@ -1,9 +1,10 @@
 package com.crud.library.domain;
 
 import com.crud.library.repository.BookDao;
-import com.crud.library.repository.RentalEntryDao;
+import com.crud.library.repository.RentalDao;
 import com.crud.library.repository.TitleDao;
 import com.crud.library.repository.UserDao;
+import com.crud.library.utility.TimeProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,27 +27,30 @@ public class RentalEntryTestSuite {
     UserDao userDao;
 
     @Autowired
-    RentalEntryDao rentalEntryDao;
+    RentalDao rentalDao;
+
+    @Autowired
+    TimeProvider timeProvider;
 
     @Test
     public void testCreateRentalEntry() {
         //given
         Title title = new Title("title", "author", 2020);
         titleDao.save(title);
-        Book book = new Book(title, Status.AVAILABLE);
+        Book book = new Book(title);
         bookDao.save(book);
-        User user = new User("Fred", "Flintstone", LocalDateTime.now());
+        User user = new User("Fred", "Flintstone", timeProvider.getTime());
         userDao.save(user);
-        RentalEntry rentalEntry = new RentalEntry(book, user, LocalDateTime.now());
+        Rental rentalEntry = new Rental(book, user, timeProvider.getTime());
 
         //when
-        rentalEntryDao.save(rentalEntry);
+        rentalDao.save(rentalEntry);
 
         //then
         assertNotEquals(0L, rentalEntry.getId());
 
         //clean
-        rentalEntryDao.deleteAll();
+        rentalDao.deleteAll();
         bookDao.deleteAll();
         titleDao.deleteAll();
         userDao.deleteAll();
@@ -57,22 +61,22 @@ public class RentalEntryTestSuite {
         //given
         Title title = new Title("title", "author", 2020);
         titleDao.save(title);
-        Book book = new Book(title, Status.AVAILABLE);
+        Book book = new Book(title);
         bookDao.save(book);
-        User user = new User("Fred", "Flintstone", LocalDateTime.now());
+        User user = new User("Fred", "Flintstone", timeProvider.getTime());
         userDao.save(user);
-        RentalEntry rentalEntry = new RentalEntry(book, user, LocalDateTime.now());
-        rentalEntryDao.save(rentalEntry);
+        Rental rentalEntry = new Rental(book, user, timeProvider.getTime());
+        rentalDao.save(rentalEntry);
 
         //when
         Long id = rentalEntry.getId();
-        Optional<RentalEntry>  entryFormDb = rentalEntryDao.findById(id);
+        Optional<Rental>  entryFormDb = rentalDao.findById(id);
 
         //then
         assertTrue(entryFormDb.isPresent());
 
         //clean
-        rentalEntryDao.deleteAll();
+        rentalDao.deleteAll();
         bookDao.deleteAll();
         titleDao.deleteAll();
         userDao.deleteAll();
@@ -83,22 +87,22 @@ public class RentalEntryTestSuite {
         //given
         Title title = new Title("title", "author", 2020);
         titleDao.save(title);
-        Book book = new Book(title, Status.AVAILABLE);
+        Book book = new Book(title);
         bookDao.save(book);
-        User user = new User("Fred", "Flintstone", LocalDateTime.now());
+        User user = new User("Fred", "Flintstone", timeProvider.getTime());
         userDao.save(user);
-        RentalEntry rentalEntry = new RentalEntry(book, user, LocalDateTime.now());
-        rentalEntryDao.save(rentalEntry);
+        Rental rental = new Rental(book, user, timeProvider.getTime());
+        rentalDao.save(rental);
 
         //when
-        rentalEntry.setReturnDate(LocalDateTime.now().plusDays(2));
-        rentalEntryDao.save(rentalEntry);
+        rental.setReturnDate(LocalDateTime.now().plusDays(2));
+        rentalDao.save(rental);
 
         //then
-        assertNotNull(rentalEntry.getReturnDate());
+        assertNotNull(rental.getReturnDate());
 
         //clean
-        rentalEntryDao.deleteAll();
+        rentalDao.deleteAll();
         bookDao.deleteAll();
         titleDao.deleteAll();
         userDao.deleteAll();
@@ -109,19 +113,19 @@ public class RentalEntryTestSuite {
         //given
         Title title = new Title("title", "author", 2020);
         titleDao.save(title);
-        Book book = new Book(title, Status.AVAILABLE);
+        Book book = new Book(title);
         bookDao.save(book);
-        User user = new User("Fred", "Flintstone", LocalDateTime.now());
+        User user = new User("Fred", "Flintstone", timeProvider.getTime());
         userDao.save(user);
-        RentalEntry rentalEntry = new RentalEntry(book, user, LocalDateTime.now());
-        rentalEntryDao.save(rentalEntry);
+        Rental rentalEntry = new Rental(book, user, timeProvider.getTime());
+        rentalDao.save(rentalEntry);
 
         //when
         Long id = rentalEntry.getId();
-        rentalEntryDao.deleteById(id);
+        rentalDao.deleteById(id);
 
         //then
-        assertFalse(rentalEntryDao.existsById(id));
+        assertFalse(rentalDao.existsById(id));
 
         //clean
         bookDao.deleteAll();

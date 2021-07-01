@@ -8,5 +8,5 @@ import lombok.Getter;
 public class BookDto {
     private Long id;
     private Long titleId;
-    private String status;
+    private Status status;
 }

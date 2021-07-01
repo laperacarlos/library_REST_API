@@ -1,51 +1,53 @@
 package com.crud.library.domain;
 
 import com.crud.library.repository.UserDao;
+import com.crud.library.utility.TimeProvider;
 import org.junit.jupiter.api.Test;
-//import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@RunWith(SpringRunner.class)
 @SpringBootTest()
 public class UserTestSuite {
 
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private TimeProvider timeProvider;
+
     @Test
     public void testCreateUser() {
         //given
-        User user = new User("Fred", "Flintstone", LocalDateTime.now());
+        User user = new User("Fred", "Flintstone", timeProvider.getTime());
 
         //when
-        userDao.save(user);
+        User savedUser = userDao.save(user);
 
         //then
-        assertNotEquals(0L, user.getId());
+        assertNotEquals(0L, savedUser.getId());
 
         //clean
         userDao.deleteAll();
     }
 
     @Test
-    public void testReadDataFromUser() {
+    public void testReadDataFromUser() throws IOException {
         //given
-        User user = new User("Fred", "Flintstone", LocalDateTime.now());
-        userDao.save(user);
+        User user = new User("Fred", "Flintstone", timeProvider.getTime());
+        User savedUser = userDao.save(user);
 
         //when
-        Long id = user.getId();
-        Optional<User> userFromDb = userDao.findById(id);
+        Long id = savedUser.getId();
+        User userFromDb = userDao.findById(id).orElseThrow(IOException::new);
 
         //then
-        assertTrue(userFromDb.isPresent());
+        assertEquals("Fred", userFromDb.getFirstName());
+        assertEquals("Flintstone", userFromDb.getLastName());
 
         //clean
         userDao.deleteAll();
@@ -54,7 +56,7 @@ public class UserTestSuite {
     @Test
     public void testUpdateUser() {
         //given
-        User user = new User("Fred", "Flintstone", LocalDateTime.now());
+        User user = new User("Fred", "Flintstone", timeProvider.getTime());
         userDao.save(user);
 
         //when
@@ -71,7 +73,7 @@ public class UserTestSuite {
     @Test
     public void testDeleteUser() {
         //given
-        User user = new User("Fred", "Flintstone", LocalDateTime.now());
+        User user = new User("Fred", "Flintstone", timeProvider.getTime());
         userDao.save(user);
 
         //when

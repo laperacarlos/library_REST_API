@@ -32,7 +32,7 @@ public class Title {
     @OneToMany(
             targetEntity = Book.class,
             mappedBy = "title",
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     private List<Book> books = new ArrayList<>();
 

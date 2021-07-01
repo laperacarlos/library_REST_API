@@ -13,5 +13,5 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private LocalDateTime creationDate;
-    private List<RentalEntry> listOfRentals;
+    private List<Rental> listOfRentals;
 }

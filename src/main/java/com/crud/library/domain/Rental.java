@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Entity(name = "RENTAL_REGISTER")
-public class RentalEntry {
+public class Rental {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,20 +26,16 @@ public class RentalEntry {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    @NotNull
     @Column(name = "RENTAL_DATE")
     private LocalDateTime rentalDate;
 
     @Column(name = "RETURN_DATE")
     private LocalDateTime returnDate;
 
-    public RentalEntry(@NotNull Book book, @NotNull User user, LocalDateTime rentalDate) {
+    public Rental(@NotNull Book book, @NotNull User user, @NotNull LocalDateTime rentalDate) {
         this.book = book;
         this.user = user;
         this.rentalDate = rentalDate;
-    }
-
-    public RentalEntry(Book book, User user) {
-        this.book = book;
-        this.user = user;
     }
 }

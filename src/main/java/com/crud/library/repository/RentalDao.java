@@ -1,10 +1,10 @@
 package com.crud.library.repository;
 
-import com.crud.library.domain.User;
+import com.crud.library.domain.Rental;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserDao extends JpaRepository<User, Long> {
+public interface RentalDao extends JpaRepository<Rental, Long> {
 }
