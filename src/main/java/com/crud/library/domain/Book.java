@@ -28,10 +28,9 @@ public class Book {
     private Status status;
 
     @OneToMany(
-            cascade = CascadeType.PERSIST,
             targetEntity = Rental.class,
             mappedBy = "book",
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     private List<Rental> listOfRentals = new ArrayList<>();
 

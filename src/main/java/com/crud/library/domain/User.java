@@ -33,7 +33,7 @@ public class User {
     @OneToMany(
             targetEntity = Rental.class,
             mappedBy = "user",
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     private List<Rental> listOfRentals = new ArrayList<>();
 

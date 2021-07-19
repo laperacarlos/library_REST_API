@@ -1,12 +1,12 @@
 package com.crud.library.domain;
 
+import com.crud.library.exceptions.UserNotFoundException;
 import com.crud.library.repository.UserDao;
 import com.crud.library.utility.TimeProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,14 +36,14 @@ public class UserTestSuite {
     }
 
     @Test
-    public void testReadDataFromUser() throws IOException {
+    public void testReadDataFromUser() throws UserNotFoundException {
         //given
         User user = new User("Fred", "Flintstone", timeProvider.getTime());
         User savedUser = userDao.save(user);
 
         //when
         Long id = savedUser.getId();
-        User userFromDb = userDao.findById(id).orElseThrow(IOException::new);
+        User userFromDb = userDao.findById(id).orElseThrow(() -> new UserNotFoundException(user.getId()));
 
         //then
         assertEquals("Fred", userFromDb.getFirstName());
